@@ -1,0 +1,69 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\USER\\source\\repos\\Program\\ASE_Programming_LanguageTests1\\ASE_Programming_LanguageTests1.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\USER\\source\\repos\\Program\\ASE_Programming_LanguageTests1\\ASE_Programming_LanguageTests1.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\USER\\source\\repos\\Program\\ASE_Programming_LanguageTests1\\ASE_Programming_LanguageTests1.csproj",
+        "projectName": "ASE_Programming_LanguageTests1",
+        "projectPath": "C:\\Users\\USER\\source\\repos\\Program\\ASE_Programming_LanguageTests1\\ASE_Programming_LanguageTests1.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USER\\source\\repos\\Program\\ASE_Programming_LanguageTests1\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "targetAlias": "net472",
+            "projectReferences": {
+              "C:\\Users\\USER\\source\\repos\\Program\\Program\\ASE_Programming_Language.csproj": {
+                "projectPath": "C:\\Users\\USER\\source\\repos\\Program\\Program\\ASE_Programming_Language.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.5.0, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.12.0, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[3.16.1, )"
+            },
+            "System.Windows.Forms": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
