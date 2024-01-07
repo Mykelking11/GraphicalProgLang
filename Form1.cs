@@ -31,12 +31,15 @@ namespace ASE_Programming_Language
         public double SomeConditionFlag { get; internal set; }
         public double String { get; internal set; }
 
-        //private int number;
-
+        /// <summary>
+        /// Represents a form for drawing shapes.
+        /// </summary>
+        /// <param name="randomNumberGenerator">The random number generator for generating random values.</param>
         public Form1(IRandomNumberGenerator randomNumberGenerator)
         {
             InitializeComponent();
             _randomNumberGenerator = randomNumberGenerator;
+
             // Create and add the button for drawing shapes
             Button drawButton = new Button
             {
@@ -47,25 +50,31 @@ namespace ASE_Programming_Language
             Controls.Add(drawButton);
 
             // Create and add the button for drawing random circles
-           // Button btnDrawRandomCircles = new Button
-           // {
-               // Text = "R.Circles",
-               // Location = new Point(200, 290) // Adjust location to avoid overlap
-           // };
-           // btnDrawRandomCircles.Click += buttonTestLoop_Click;
-           // Controls.Add(btnDrawRandomCircles);
-
-        
+            // Button btnDrawRandomCircles = new Button
+            // {
+            //     Text = "R.Circles",
+            //     Location = new Point(200, 290) // Adjust location to avoid overlap
+            // };
+            // btnDrawRandomCircles.Click += buttonTestLoop_Click;
+            // Controls.Add(btnDrawRandomCircles);
 
             // Initialize commandsInLoop
             commandsInLoop = new List<ICommand>();
         }
 
+        /// <summary>
+        /// Event handler for the click event of the "Draw" button.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void DrawButton_Click(object sender, EventArgs e)
         {
             DrawCompositeShape();
         }
 
+        /// <summary>
+        /// Draws a composite shape on the PictureBox.
+        /// </summary>
         private void DrawCompositeShape()
         {
             Random rnd = new Random();
@@ -102,17 +111,48 @@ namespace ASE_Programming_Language
             }
         }
 
+
+        /// <summary>
+        /// Represents information about a shape, including its type, bounds, and additional properties based on the type.
+        /// </summary>
         public class ShapeInfo
         {
+            /// <summary>
+            /// Enumerates the different types of shapes.
+            /// </summary>
             public enum ShapeType { Rectangle, Circle, Line, Ellipse, Polygon, Arc }
+
+            /// <summary>
+            /// Gets or sets the type of the shape.
+            /// </summary>
             public ShapeType Type { get; set; }
+
+            /// <summary>
+            /// Gets or sets the bounding rectangle of the shape.
+            /// </summary>
             public Rectangle Bounds { get; set; }
-            public Point[] Points { get; set; } // For polygons and lines
-            public int StartAngle { get; set; } // For arcs
-            public int SweepAngle { get; set; } 
+
+            /// <summary>
+            /// Gets or sets an array of points representing the shape. Used for polygons and lines.
+            /// </summary>
+            public Point[] Points { get; set; }
+
+            /// <summary>
+            /// Gets or sets the starting angle of the shape. Used for arcs.
+            /// </summary>
+            public int StartAngle { get; set; }
+
+            /// <summary>
+            /// Gets or sets the sweep angle of the shape. Used for arcs.
+            /// </summary>
+            public int SweepAngle { get; set; }
         }
 
-
+        /// <summary>
+        /// Draws a list of shapes using the specified Graphics object.
+        /// </summary>
+        /// <param name="graphics">The Graphics object used for drawing.</param>
+        /// <param name="shapes">The list of ShapeInfo objects representing the shapes to be drawn.</param>
         public void DrawShapes(Graphics graphics, List<ShapeInfo> shapes)
         {
             foreach (var shape in shapes)
@@ -141,16 +181,17 @@ namespace ASE_Programming_Language
             }
         }
 
-       /* private void DrawCompositeShape()
-        {
-            pictureBox1.Refresh();
-            using (Graphics graphics = pictureBox1.CreateGraphics())
-            {
-                var shapes = GenerateShapes();
-                DrawShapes(graphics, shapes);
-            }
-        }
-       */
+
+        /* private void DrawCompositeShape()
+         {
+             pictureBox1.Refresh();
+             using (Graphics graphics = pictureBox1.CreateGraphics())
+             {
+                 var shapes = GenerateShapes();
+                 DrawShapes(graphics, shapes);
+             }
+         }
+        */
 
 
         private ICommand ParseCommand(string commandText)
@@ -276,8 +317,8 @@ namespace ASE_Programming_Language
             string[] lines = commandText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries); // Split the command text into lines
             List<string> errors = CheckSyntax(lines);
 
-   
-           
+
+
 
             ICommand command = ParseCommand(commandText);
 
@@ -316,29 +357,29 @@ namespace ASE_Programming_Language
 
 
             // Single-line if statement to check if the commandText is empty
-            if (string.IsNullOrWhiteSpace(commandText)) MessageBox.Show("No command entered."); 
-             if (command != null)
-             {
-                 // Check if the command is a graphical command before using graphics
-                 if (command is CommandDrawCircle)
-                 {
-                     // Use the Graphics object of the PictureBox
-                     using (Graphics graphics = pictureBox1.CreateGraphics())
-                     {
-                         command.Execute(interpreter, graphics);
-                     }
-                 }
-                 else
-                 {
-                     // For non-graphical commands, use the Execute method without Graphics
+            if (string.IsNullOrWhiteSpace(commandText)) MessageBox.Show("No command entered.");
+            if (command != null)
+            {
+                // Check if the command is a graphical command before using graphics
+                if (command is CommandDrawCircle)
+                {
+                    // Use the Graphics object of the PictureBox
+                    using (Graphics graphics = pictureBox1.CreateGraphics())
+                    {
+                        command.Execute(interpreter, graphics);
+                    }
+                }
+                else
+                {
+                    // For non-graphical commands, use the Execute method without Graphics
                     command.Execute(interpreter);
 
-                 }
-             }
-             else
-             {
-                 // Handle unrecognized command
-             }
+                }
+            }
+            else
+            {
+                // Handle unrecognized command
+            }
             if (errors.Count > 0)
             {
                 // Display all errors
@@ -355,51 +396,51 @@ namespace ASE_Programming_Language
         internal void ExecuteMultiLineCommands(string commandText)
         {
             var lines = commandText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            using (Graphics graphics = pictureBox1.CreateGraphics());
+            using (Graphics graphics = pictureBox1.CreateGraphics()) ;
             bool conditionMet = true;
             bool inIfBlock = true;
             List<string> commandBlock = new List<string>();
 
             foreach (var line in lines)
             {
-                
-                        if (line.Trim().ToLower().StartsWith("set number"))
+
+                if (line.Trim().ToLower().StartsWith("set number"))
+                {
+                    var parts = line.Split(' ');
+                    if (parts.Length == 3 && int.TryParse(parts[2], out number))
+                    {
+                        // Number is successfully set, display the number
+                        MessageBox.Show("Number set to: " + number.ToString());
+                        continue; // Continue to process other commands
+                    }
+                    else
+                    {
+                        //  MessageBox.Show("Invalid number format.");
+                        return; // Stop processing further commands
+                    }
+                }
+                else
+                {
+
+                    string trimmedLine = line.Trim().ToLower();
+                    if (trimmedLine.StartsWith("set number"))
+                    {
+                        // Existing logic for setting number...
+                    }
+                    else if (trimmedLine.StartsWith("size = count *"))
+                    {
+                        string[] parts = trimmedLine.Split('*');
+                        if (parts.Length == 2 && int.TryParse(parts[1].Trim(), out int baseSize))
                         {
-                            var parts = line.Split(' ');
-                            if (parts.Length == 3 && int.TryParse(parts[2], out number))
-                            {
-                                // Number is successfully set, display the number
-                                MessageBox.Show("Number set to: " + number.ToString());
-                                continue; // Continue to process other commands
-                            }
-                            else
-                            {
-                              //  MessageBox.Show("Invalid number format.");
-                                return; // Stop processing further commands
-                            }
+                            DrawConcentricCircles(baseSize);
                         }
                         else
                         {
-
-                            string trimmedLine = line.Trim().ToLower();
-                            if (trimmedLine.StartsWith("set number"))
-                            {
-                                // Existing logic for setting number...
-                            }
-                            else if (trimmedLine.StartsWith("size = count *"))
-                            {
-                                string[] parts = trimmedLine.Split('*');
-                                if (parts.Length == 2 && int.TryParse(parts[1].Trim(), out int baseSize))
-                                {
-                                    DrawConcentricCircles(baseSize);
-                                }
-                                else
-                                {
-                                    //MessageBox.Show("Invalid format for size command.");
-                                }
-                            }
-                            // ... other command processing logic ...
+                            //MessageBox.Show("Invalid format for size command.");
                         }
+                    }
+                    // ... other command processing logic ...
+                }
 
                 if (conditionMet)
                 {
@@ -439,7 +480,7 @@ namespace ASE_Programming_Language
                         commandBlock.Add(trimmedLine);
                     }
                 }
-                       // ... (rest of your existing logic for processing if-endif blocks) ...
+                // ... (rest of your existing logic for processing if-endif blocks) ...
             }
         }
 
@@ -505,7 +546,11 @@ namespace ASE_Programming_Language
             }
         }
 
-
+        /// <summary>
+        /// Generates a list of random drawing commands.
+        /// </summary>
+        /// <param name="numberOfCommands">The number of random commands to generate.</param>
+        /// <returns>A list of ICommand instances representing the generated commands.</returns>
         public List<ICommand> GenerateRandomCommands(int numberOfCommands)
         {
             List<ICommand> commands = new List<ICommand>();
@@ -519,9 +564,11 @@ namespace ASE_Programming_Language
             return commands;
         }
 
-
-
-
+        /// <summary>
+        /// Handles the button click event to evaluate and display a message based on the entered number in textBox1.
+        /// </summary>
+        /// <param name="sender">The button that triggered the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void button2_Click(object sender, EventArgs e)
         {
             if (int.TryParse(textBox1.Text, out int number) && number > 10)
@@ -534,10 +581,11 @@ namespace ASE_Programming_Language
             }
         }
 
-
-
-
-
+        /// <summary>
+        /// Evaluates a condition specified in the given conditionLine.
+        /// </summary>
+        /// <param name="conditionLine">The condition to be evaluated.</param>
+        /// <returns>True if the condition is met, otherwise false.</returns>
         private bool EvaluateCondition(string conditionLine)
         {
             // Example: "if number > 10"
@@ -549,6 +597,10 @@ namespace ASE_Programming_Language
             return false;
         }
 
+        /// <summary>
+        /// Draws concentric circles on the PictureBox based on the provided base size.
+        /// </summary>
+        /// <param name="baseSize">The base size of the circles.</param>
         private void DrawConcentricCircles(int baseSize)
         {
             using (Graphics graphics = pictureBox1.CreateGraphics())
@@ -566,6 +618,11 @@ namespace ASE_Programming_Language
             }
         }
 
+        /// <summary>
+        /// Checks the syntax of the provided array of lines and returns a list of syntax errors.
+        /// </summary>
+        /// <param name="lines">The array of lines to be checked for syntax errors.</param>
+        /// <returns>A list of syntax errors, if any.</returns>
         internal List<string> CheckSyntax(string[] lines)
         {
             List<string> errors = new List<string>();
@@ -573,7 +630,6 @@ namespace ASE_Programming_Language
             {
                 string line = lines[i].Trim();
                 string[] parts = line.Split(' ');
-
 
                 if (parts.Length == 0 || string.IsNullOrWhiteSpace(parts[0]))
                     continue; // Skip empty lines
@@ -599,7 +655,7 @@ namespace ASE_Programming_Language
                         if (!(parts.Length == 3 && parts[1] == "=" &&
                               (int.TryParse(parts[2], out _) || parts[2].ToLower() == "count * 10")))
                         {
-                           // errors.Add($"Syntax error on line {i + 1}: Invalid 'size' assignment.");
+                            // errors.Add($"Syntax error on line {i + 1}: Invalid 'size' assignment.");
                         }
                         break;
                     case "if":
@@ -614,16 +670,18 @@ namespace ASE_Programming_Language
                         if (parts.Length != 1)
                             errors.Add($"Syntax error on line {i + 1}: 'endif' command should not have additional parameters.");
                         break;
-
                     default:
                         errors.Add($"Syntax error on line {i + 1}: Unknown command '{parts[0]}'.");
                         break;
-
                 }
             }
             return errors;
         }
 
+        /// <summary>
+        /// Executes a list of commands represented by an array of lines.
+        /// </summary>
+        /// <param name="lines">The array of lines representing commands to be executed.</param>
         private void ExecuteCommands(string[] lines)
         {
             using (Graphics graphics = pictureBox1.CreateGraphics())
@@ -649,6 +707,11 @@ namespace ASE_Programming_Language
             }
         }
 
+        /// <summary>
+        /// Processes the drawing command specified by the provided parts and performs the corresponding graphics operation.
+        /// </summary>
+        /// <param name="parts">The array of command parts.</param>
+        /// <param name="graphics">The Graphics object used for drawing.</param>
         private void ProcessDrawingCommand(string[] parts, Graphics graphics)
         {
             switch (parts[1].ToLower())
@@ -674,6 +737,10 @@ namespace ASE_Programming_Language
             }
         }
 
+        /// <summary>
+        /// Generates a list of ShapeInfo objects representing random shapes.
+        /// </summary>
+        /// <returns>A list of ShapeInfo objects representing random shapes.</returns>
         internal List<ShapeInfo> GenerateShapes()
         {
             var rnd = new Random();
@@ -735,11 +802,8 @@ namespace ASE_Programming_Language
 
             return shapes;
         }
-
     }
-
 }
-
 
 
 

@@ -15,10 +15,16 @@ namespace ASE_Programming_Language
         [STAThread]
         static void Main()
         {
+            // Enable visual styles for the application
             Application.EnableVisualStyles();
+
+            // Set default text rendering compatibility
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // Create an instance of the random number generator
             IRandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
+
+            // Run the application with the main form, passing the random number generator
             Application.Run(new Form1(randomNumberGenerator));
         }
     }
